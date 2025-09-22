@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Login</title>
+  <style>
+    h2 {
+      color: blueviolet;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Registrar</h2>
+  <form id="registerForm">
+    <input type="text" id="regUsername" placeholder="Usuário" required>
+    <input type="password" id="regPassword" placeholder="Senha" required>
+    <button type="submit">Registrar</button>
+  </form>
+
+  <h2>Login</h2>
+  <form id="loginForm">
+    <input type="text" id="loginUsername" placeholder="Usuário" required>
+    <input type="password" id="loginPassword" placeholder="Senha" required>
+    <button type="submit">Login</button>
+  </form>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("regUsername").value;
+      const password = document.getElementById("regPassword").value;
+      const res = await fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+      alert(await res.text());
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("loginUsername").value;
+      const password = document.getElementById("loginPassword").value;
+      const res = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+      alert(await res.text());
+    });
+  </script>
+</body>
+
+</html>
